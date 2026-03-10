@@ -5,7 +5,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import LeaveOneOut, cross_val_predict
 
-# 1) Manual hyperparameter input (from your best params)
+# 1) Manual hyperparameter input (from best params)
 params = {
     'C': 100,
     'degree': 3,
@@ -17,7 +17,16 @@ params = {
 
 # 2) Prepare data (only x1–x7 and y1)
 data = {
-
+    'x1': #your_data_pathway,  # TFR
+    'x2': #your_data_pathway,  # FRR
+    'x3': #your_data_pathway,  # Conc
+    'x4': #your_data_pathway,  # DOPC
+    'x5': #your_data_pathway,  # Chol
+    'x6': #your_data_pathway,  # ESM
+    'x7': #your_data_pathway, # GP340
+    'x8': #your_data_pathway,  # rDPH
+    'y1': #your_data_pathway,  # Size
+    'y2': #your_data_pathway,  # PDI
 }
 df = pd.DataFrame(data)
 
@@ -39,7 +48,7 @@ df_compare = pd.DataFrame({
     'y1_true': y,
     'y1_pred': y_pred
 })
-csv_path = '/Users/leejunghu/Desktop/actual_vs_predicted_loocv.csv'
+csv_path = #'#your_pathway.csv'
 df_compare.to_csv(csv_path, index=False)
 print(f"▶ Actual vs Predicted (LOOCV) values saved to {csv_path}")
 
