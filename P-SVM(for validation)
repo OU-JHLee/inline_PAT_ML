@@ -1,0 +1,49 @@
+import numpy as np
+import pandas as pd
+from sklearn.svm import SVR
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import LeaveOneOut, cross_val_predict
+
+# 1) Manual hyperparameter input (from your best params)
+params = {
+    'C': 100,
+    'degree': 3,
+    'gamma': 'scale',
+    'epsilon': 1,
+    'coef0': 1,
+    'tol': 0.01
+}
+
+# 2) Prepare data (only x1–x7 and y1)
+data = {
+
+}
+df = pd.DataFrame(data)
+
+X = df[['x1','x2','x3','x4','x5','x6','x7','x8']].values
+y = df['y1'].values  # 1D array for single target
+
+# 3) Build pipeline
+pipeline = make_pipeline(
+    StandardScaler(),
+    SVR(kernel='poly', **params)
+)
+
+# 4) LOOCV prediction (no R²)
+loo = LeaveOneOut()
+y_pred = cross_val_predict(pipeline, X, y, cv=loo, n_jobs=-1)
+
+# 5) Compare and save
+df_compare = pd.DataFrame({
+    'y1_true': y,
+    'y1_pred': y_pred
+})
+csv_path = '/Users/leejunghu/Desktop/actual_vs_predicted_loocv.csv'
+df_compare.to_csv(csv_path, index=False)
+print(f"▶ Actual vs Predicted (LOOCV) values saved to {csv_path}")
+
+# 6) Display sample
+print(df_compare.head())
+
+
