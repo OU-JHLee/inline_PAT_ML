@@ -131,7 +131,7 @@ for i, values in enumerate(all_combinations, start=1):
         best_params = trial_params.copy()
         print(f"[BEST UPDATE] trial={i} | RMSE={rmse:.6f} | R²={r2:.6f} | params={best_params}")
 
-# ─── 5. Results ──────────────────────────────────────────
+# ─── 5. results ──────────────────────────────────────────
 results_df = pd.DataFrame(results).sort_values(by='rmse', ascending=True)
 
 out_grid_csv = '/Users/leejunghu/Desktop/xgb_loocv_gridsearch_results.csv'
@@ -142,7 +142,7 @@ print(f"Best RMSE: {best_rmse:.6f}")
 print(f"Best Params: {best_params}")
 print(f"Saved all results to:\n{out_grid_csv}")
 
-# ─── 6. best params로 실제/예측값 저장 ─────────────────────
+# ─── 6. save best params ─────────────────────
 best_rmse, best_r2, actual_best, pred_best = loocv_rmse_xgb(
     X=X_full,
     y=y_full,
@@ -160,7 +160,7 @@ df_best['residual'] = df_best['y_true'] - df_best['y_pred']
 df_best['abs_error'] = df_best['residual'].abs()
 df_best['squared_error'] = df_best['residual'] ** 2
 
-out_pred_csv = '/Users/leejunghu/Desktop/xgb_loocv_best_predictions.csv'
+out_pred_csv = '#your_pathway_your_filename.csv'
 with open(out_pred_csv, 'w') as f:
     f.write(f"# Best RMSE: {best_rmse:.6f}\n")
     f.write(f"# Best R2: {best_r2:.6f}\n")
